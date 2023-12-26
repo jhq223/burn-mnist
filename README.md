@@ -29,11 +29,11 @@
 ### 自行编译
 从GitHub克隆
 ```bash
-git clone 
+git clone https://github.com/jhq223/burn-mnist.git
 ```
 
 ```bash
-cd xx
+cd burn-mnist
 cargo build --release
 ```
 
