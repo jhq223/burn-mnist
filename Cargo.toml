@@ -1,0 +1,23 @@
+[package]
+name = "mnist-burn"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+burn = { version = "0.11.1", features = ["train", "wgpu"] }
+
+# Serialization
+serde = "1"
+
+# gui
+eframe = { version = "0.24.1" }
+# For image support:
+egui_extras = { version = "0.24.1", features = ["image"] }
+# For chart support:
+egui_plot = "0.24.1"
+
+# cl
+clap = { version = "4.4.11", features = ["derive"] }
+image = "0.24.7"
