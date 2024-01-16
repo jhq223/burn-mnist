@@ -11,13 +11,13 @@ use burn::{
 
 #[derive(Module, Debug)]
 pub struct Model<B: Backend> {
-    conv1: ConvBlock<B>,
-    conv2: ConvBlock<B>,
-    conv3: ConvBlock<B>,
-    dropout: nn::Dropout,
-    fc1: nn::Linear<B>,
-    fc2: nn::Linear<B>,
-    activation: nn::GELU,
+    conv1: ConvBlock<B>,  // 第一个卷积块
+    conv2: ConvBlock<B>,  // 第二个卷积块
+    conv3: ConvBlock<B>,  // 第三个卷积块
+    dropout: nn::Dropout, // 随机失活
+    fc1: nn::Linear<B>,   // 全连接层1
+    fc2: nn::Linear<B>,   // 全连接层2
+    activation: nn::GELU, // 激活函数
 }
 
 impl<B: Backend> Default for Model<B> {
@@ -89,9 +89,9 @@ impl<B: Backend> Model<B> {
 
 #[derive(Module, Debug)]
 pub struct ConvBlock<B: Backend> {
-    conv: nn::conv::Conv2d<B>,
-    norm: BatchNorm<B, 2>,
-    activation: nn::GELU,
+    conv: nn::conv::Conv2d<B>, // 2D卷积层
+    norm: BatchNorm<B, 2>,     // 批归一化层
+    activation: nn::GELU,      // 激活函数
 }
 
 impl<B: Backend> ConvBlock<B> {
@@ -117,14 +117,15 @@ impl<B: Backend> ConvBlock<B> {
 }
 
 impl<B: AutodiffBackend> TrainStep<MNISTBatch<B>, ClassificationOutput<B>> for Model<B> {
+    // 实现训练步骤
     fn step(&self, item: MNISTBatch<B>) -> TrainOutput<ClassificationOutput<B>> {
         let item = self.forward_classification(item);
-
         TrainOutput::new(self, item.loss.backward(), item)
     }
 }
 
 impl<B: Backend> ValidStep<MNISTBatch<B>, ClassificationOutput<B>> for Model<B> {
+    // 实现验证步骤
     fn step(&self, item: MNISTBatch<B>) -> ClassificationOutput<B> {
         self.forward_classification(item)
     }

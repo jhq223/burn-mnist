@@ -18,22 +18,29 @@ use burn::{
     },
 };
 
+// 模型保存目录
 static ARTIFACT_DIR: &str = "./tmp/burn-mnist";
 
+// 训练配置
 #[derive(Config)]
 pub struct MnistTrainingConfig {
+    // 训练轮数
     #[config(default = 10)]
     pub num_epochs: usize,
 
+    // 大小
     #[config(default = 64)]
     pub batch_size: usize,
 
+    // 数据加载器的工作线程数
     #[config(default = 4)]
     pub num_workers: usize,
 
+    // 随机种子
     #[config(default = 42)]
     pub seed: u64,
 
+    // 优化器配置
     pub optimizer: AdamConfig,
 }
 
